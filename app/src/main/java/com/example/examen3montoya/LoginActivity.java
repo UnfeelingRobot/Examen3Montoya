@@ -20,9 +20,9 @@ public class LoginActivity extends AppCompatActivity {
 
     TextView textRegister;
     MaterialButton loginButton;
-    TextInputEditText inputNickname,inputPassword;
-    TextInputLayout inputLayoutNickname, inputLayoutPassword;
-    String textNickname, textPassword;
+    TextInputEditText inputUser,inputPassword;
+    TextInputLayout inputLayoutUser, inputLayoutPassword;
+    String textUser, textPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +31,10 @@ public class LoginActivity extends AppCompatActivity {
 
         textRegister = findViewById(R.id.textRegister);
         loginButton = findViewById(R.id.login_button);
-        inputLayoutNickname = findViewById(R.id.email);
+        inputLayoutUser = findViewById(R.id.email);
         inputLayoutPassword = findViewById(R.id.password);
-        inputNickname=findViewById(R.id.textemail);
-        inputPassword=findViewById(R.id.textpassword);
+        inputUser=findViewById(R.id.input_user);
+        inputPassword=findViewById(R.id.input_password);
 
         textRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,27 +48,19 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                textNickname=inputNickname.getText().toString();
-                textPassword=inputPassword.getText().toString();
-
-                if(TextUtils.isEmpty(textNickname) || TextUtils.isEmpty(textPassword)) {
-                    if (TextUtils.isEmpty(textNickname)) {
-                        inputLayoutNickname.setError("You must fill in the field with your email");
-                    } else {
-                        inputLayoutNickname.setError(null);
-                    }
-                    if (TextUtils.isEmpty(textPassword)) {
-                        inputLayoutPassword.setError("You must fill in the field with your password");
-                    } else {
-                        inputLayoutPassword.setError(null);
-                    }
-                }else {
-
-                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                    finish();
+                if (!Functions.verifyCompleteData(inputUser, inputPassword)) {
+                    Functions.showAlert(LoginActivity.this, "Error in log in", "You have the enter complete data");
                 }
+               else if (!User.verifyUserExistence()){
+                    Functions.showAlert(LoginActivity.this, "Error in log in", "You have not registered");
+                }
+                else if (User.getName().equals(inputUser.getText().toString()) && User.getPassword().equals(inputPassword.getText().toString())){
+                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                    finish();
+                } else {
+                    Functions.showAlert(LoginActivity.this, "Error in log in", "The data is incorrect");
 
+                }
             }
         });
     }

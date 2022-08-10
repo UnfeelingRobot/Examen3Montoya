@@ -2,5 +2,18 @@
     <string name="app_name">Examen3Montoya</string>
     <string name="image_description">descripcion</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="titleL">BEST FREE GALLERY</string>
+    <string name="login_title">Log in</string>
+    <string name="input_user">Username</string>
+    <string name="input_password">Password</string>
+    <string name="input_email">Email</string>
+    <string name="input_number">Phone Number</string>
+    <string name="login_button">Log in</string>
+    <string name="login_text_register">Don\'t have an account?</string>
+    <string name="login_text_link_register">Register</string>
+    <string name="titleR">ENTER YOUR DATA</string>
+    <string name="register_title">Sign up</string>
+    <string name="register_button">Register</string>
+    <string name="register_text_login">Already have an account?</string>
+    <string name="register_text_link_login">Log in</string>
 </resources>
