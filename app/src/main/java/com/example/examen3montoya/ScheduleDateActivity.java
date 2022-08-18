@@ -71,7 +71,7 @@ public class ScheduleDateActivity extends AppCompatActivity {
                 try {
                     long result = insertDate();
                     if (result != -1) {
-                        Intent intent = new Intent(this, MainMenuActivity.class);
+                        Intent intent = new Intent(this, MainActivity.class);
                         startActivity(intent);
                         Toast.makeText(this, "Appointment saved successfully", Toast.LENGTH_SHORT).show();
                     } else {
