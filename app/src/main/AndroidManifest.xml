@@ -18,6 +18,18 @@
         android:theme="@style/Theme.Examen3Montoya"
         tools:targetApi="31">
         <activity
+            android:name=".SelectDateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ScheduleDateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainMenuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".InformationActivity"
+            android:exported="false" />
+        <activity
             android:name=".HomeActivity"
             android:exported="false" />
         <activity

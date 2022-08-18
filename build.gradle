@@ -3,6 +3,20 @@ plugins {
     id 'com.android.application' version '7.2.1' apply false
     id 'com.android.library' version '7.2.1' apply false
 }
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
 
 task clean(type: Delete) {
     delete rootProject.buildDir

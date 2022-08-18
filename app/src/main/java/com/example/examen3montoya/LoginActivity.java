@@ -1,15 +1,29 @@
 package com.example.examen3montoya;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.example.examen3montoya.db.Connection;
+import com.example.examen3montoya.table.Tables;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -18,51 +32,143 @@ import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
 
-    TextView textRegister;
-    MaterialButton loginButton;
-    TextInputEditText inputUser,inputPassword;
-    TextInputLayout inputLayoutUser, inputLayoutPassword;
-    String textUser, textPassword;
+    // Campos
+    public EditText editTextEmail, editTextPassword;
 
+    AwesomeValidation awesomeValidation;
+    Connection conn;
+    SQLiteDatabase db;
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_main);
 
-        textRegister = findViewById(R.id.textRegister);
-        loginButton = findViewById(R.id.login_button);
-        inputLayoutUser = findViewById(R.id.email);
-        inputLayoutPassword = findViewById(R.id.password);
-        inputUser=findViewById(R.id.input_user);
-        inputPassword=findViewById(R.id.input_password);
+        // Obteniendo los campos
+        editTextEmail = findViewById(R.id.editTextEmail);
+        editTextPassword = findViewById(R.id.editTextPassword);
 
-        textRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+        awesomeValidation = new AwesomeValidation(ValidationStyle.UNDERLABEL);
+        awesomeValidation.setContext(this);
+        awesomeValidation.setUnderlabelColor(ContextCompat.getColor(this, android.R.color.holo_red_light));
+
+        // Validación correo
+        awesomeValidation.addValidation(this, R.id.editTextEmail, Patterns.EMAIL_ADDRESS, R.string.error_email);
+
+        // Validación contraseña
+        awesomeValidation.addValidation(this, R.id.editTextPassword, ".{6,}", R.string.error_password);
+
+        conn = new Connection(getApplicationContext(),"bd_users",null,1);
+    }
+
+    // Métodos públicos
+    // Método que valida el formulario
+    public void buttonLogin(View view) {
+        String email, password;
+        email = editTextEmail.getText().toString().trim();
+        password = editTextPassword.getText().toString().trim();
+
+        if (awesomeValidation.validate()) if (checkEmail(email)) {
+            if (checkEmailPassword(email, password)) {
+                SharedPreferences sharedPref = this.getSharedPreferences("email", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString(getString(R.string.email), email);
+                editor.apply();
+
+                Intent intent = new Intent(this, MainMenuActivity.class);
                 startActivity(intent);
-                finish();
             }
-        });
+        }
+    }
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!Functions.verifyCompleteData(inputUser, inputPassword)) {
-                    Functions.showAlert(LoginActivity.this, "Error in log in", "You have the enter complete data");
-                }
-               else if (!User.verifyUserExistence()){
-                    Functions.showAlert(LoginActivity.this, "Error in log in", "You have not registered");
-                }
-                else if (User.getName().equals(inputUser.getText().toString()) && User.getPassword().equals(inputPassword.getText().toString())){
-                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                    finish();
-                } else {
-                    Functions.showAlert(LoginActivity.this, "Error in log in", "The data is incorrect");
+    public void buttonSignUp(View view) {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+    }
 
-                }
+    public Boolean checkEmail(String email) {
+        db = conn.getReadableDatabase();
+        String[] parameters = { email };
+        String[] fields = {Tables.FIELD_NAME };
+
+        try {
+            // Select correo electrónico from usuario where correo electrónico =?
+            Cursor cursor = db.query(Tables.TABLE_USER,
+                    fields,
+                    Tables.FIELD_ID_EMAIL + " = ? ",
+                    parameters,
+                    null,
+                    null,
+                    null);
+
+            if (cursor.getCount() > 0) {
+                cursor.moveToFirst();
+
+                SharedPreferences sharedPref = this.getSharedPreferences("name", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString(getString(R.string.first_name), cursor.getString(0));
+                editor.apply();
+
+                cursor.close();
+                return true;
+            } else {
+
+                editTextPassword.setText("");
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.dialog);
+                builder.setTitle(R.string.email_not_found);
+                builder.setMessage(email + " Does not match any existing account. You can create an account to access");
+                builder.setNegativeButton(R.string.try_again, (dialog, which) -> {
+
+                });
+                builder.setPositiveButton(R.string.sign_up, (dialog, which) -> {
+                    // Hacer cosas aqui al hacer clic en el boton de aceptar
+                    Intent intent = new Intent(this, RegisterActivity.class);
+                    startActivity(intent);
+                });
+                builder.show();
             }
-        });
+        } catch (Exception e) {
+
+            Toast.makeText(this, e + "", Toast.LENGTH_SHORT).show();
+        }
+
+        return false;
+    }
+
+    public Boolean checkEmailPassword(String email, String password) {
+        SQLiteDatabase db = conn.getReadableDatabase();
+
+        try {
+            // Select correo electrónico from usuario where correo electrónico =?
+            Cursor cursor = db.rawQuery("Select " + Tables.FIELD_ID_EMAIL + ", " + Tables.FIELD_PASSWORD +
+                            " from " + Tables.TABLE_USER
+                            + " where " + Tables.FIELD_ID_EMAIL + " = ?  and " + Tables.FIELD_PASSWORD + "= ?",
+                    new String[] { email, password });
+
+            if (cursor.getCount() > 0) {
+                return true;
+
+            } else {
+
+                editTextPassword.setText("");
+                cursor.close();
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.dialog);
+                builder.setTitle(R.string.email_not_match);
+                builder.setMessage("The password does not match the registered account");
+                builder.setNegativeButton(R.string.try_again, (dialog, which) -> {
+
+                });
+                builder.show();
+            }
+        } catch (Exception e) {
+
+            Toast.makeText(this, e + "", Toast.LENGTH_SHORT).show();
+        }
+
+        return false;
     }
 
 }

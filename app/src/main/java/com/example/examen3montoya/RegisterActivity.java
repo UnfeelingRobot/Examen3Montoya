@@ -1,28 +1,46 @@
 package com.example.examen3montoya;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.icu.util.Calendar;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.example.examen3montoya.db.Connection;
+import com.example.examen3montoya.table.Tables;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    TextView textLogIn;
-    MaterialButton registerButton;
-    TextInputLayout inputLayoutUsername, inputLayoutEmail, inputLayoutPhoneNumber , inputLayoutPassword;
-    TextInputEditText inputUsername, inputEmail,inputPhone,inputPassword;
-    String textUsername, textEmail, textPhone, textPassword;
+    // Campos
+    public EditText editTextFirstName, editTextLastName, editTextDOB, editTextEmail, editTextPassword1, editTextPassword2, editTextPhone;
+
+    // Objeto para realizar validaciones
+    AwesomeValidation awesomeValidation;
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
 
 
 
@@ -31,45 +49,118 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        textLogIn = findViewById(R.id.textLogIn);
-        inputLayoutUsername = findViewById(R.id.username);
-        inputLayoutEmail = findViewById(R.id.email);
-        inputLayoutPhoneNumber = findViewById(R.id.number);
-        inputLayoutPassword = findViewById(R.id.password);
-        registerButton = findViewById(R.id.register_button);
-        inputUsername=findViewById(R.id.input_user);
-        inputEmail=findViewById(R.id.input_email);
-        inputPhone=findViewById(R.id.input_number);
-        inputPassword=findViewById(R.id.input_password);
+        // Obteniendo los campos
+        editTextFirstName = findViewById(R.id.editTextFirstName);
+        editTextLastName = findViewById(R.id.editTextLastName);
+        editTextEmail = findViewById(R.id.editTextEmailAddress);
+        editTextDOB = findViewById(R.id.editTextDOB);
+        editTextPassword1 = findViewById(R.id.editTextPassword1);
+        editTextPassword2 = findViewById(R.id.editTextPassword2);
+        editTextPhone = findViewById(R.id.editTextPhone);
 
-        textLogIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
+        addValidations();
+    }
 
-        registerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!Functions.verifyCompleteData(inputUsername, inputEmail, inputPassword)){
-                    Functions.showAlert(RegisterActivity.this, "Error in sign in", "You have the enter complete data");
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void addValidations() {
+        // Variable que aplicará las validaciones
+        awesomeValidation = new AwesomeValidation(ValidationStyle.UNDERLABEL);
+        awesomeValidation.setContext(this);
+        awesomeValidation.setUnderlabelColor(ContextCompat.getColor(this, android.R.color.holo_red_light));
 
-                } else if (!inputEmail.getText().toString().endsWith("@gmail.com") && (!inputEmail.getText().toString().endsWith("@hotmail.com"))){
-                        Functions.showAlert(RegisterActivity.this, "Error in sign in", "The email entered is invalid");
-
-                }else{
-                    User.setName(inputUsername.getText().toString());
-                    User.setEmail(inputEmail.getText().toString());
-                    User.setPassword(inputPassword.getText().toString());
-                    Snackbar sb = Snackbar.make(view, "Registered user successfully. Now log in.",
-                            Snackbar.LENGTH_LONG);
-                    sb.setDuration(5000);
-                    sb.show();
+        // Validación nombre y apellido
+        awesomeValidation.addValidation(this, R.id.editTextFirstName, "[A-zÀ-ú]+", R.string.error_name);
+        awesomeValidation.addValidation(this, R.id.editTextLastName, "[A-zÀ-ú]+" , R.string.error_name);
+        // Validación correo
+        awesomeValidation.addValidation(this, R.id.editTextEmailAddress, Patterns.EMAIL_ADDRESS, R.string.error_email);
+        // Validación fecha de nacimiento
+        awesomeValidation.addValidation(this, R.id.editTextDOB, input -> {
+            // check if the age is >= 16
+            try {
+                Calendar calendarBirthday = Calendar.getInstance();
+                Calendar calendarToday = Calendar.getInstance();
+                calendarBirthday.setTime(new SimpleDateFormat("dd/MM/yyyy", Locale.US).parse(input));
+                int yearOfToday = calendarToday.get(Calendar.YEAR);
+                int yearOfBirthday = calendarBirthday.get(Calendar.YEAR);
+                if (yearOfToday - yearOfBirthday > 16) {
+                    return true;
+                } else if (yearOfToday - yearOfBirthday == 16) {
+                    int monthOfToday = calendarToday.get(Calendar.MONTH);
+                    int monthOfBirthday = calendarBirthday.get(Calendar.MONTH);
+                    if (monthOfToday > monthOfBirthday) {
+                        return true;
+                    } else if (monthOfToday == monthOfBirthday) {
+                        if (calendarToday.get(Calendar.DAY_OF_MONTH) >= calendarBirthday.get(Calendar.DAY_OF_MONTH)) {
+                            return true;
+                        }
+                    }
                 }
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
+            return false;
+        }, R.string.error_year);
+        // Validación contraseña
+        awesomeValidation.addValidation(this, R.id.editTextPassword1, ".{6,}", R.string.error_password);
+        awesomeValidation.addValidation(this, R.id.editTextPassword2, R.id.editTextPassword1, R.string.wrong_password);
+        // Validación teléfono
+        awesomeValidation.addValidation(this, R.id.editTextPhone, "\\d{10}", R.string.error_phone);
+    }
+
+    // Métodos públicos
+    public void buttonSignUp(View view) {
+        if (awesomeValidation.validate()) {
+//            Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_SHORT).show();
+            try {
+                long resultado = insertUser();
+                if (resultado != -1) {
+                    Intent intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(this, "Usuario registrado!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "El correo electrónico ya está registrado", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+                Toast.makeText(this, e + "", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            Toast.makeText(getApplicationContext(), "Revisa los campos", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private long insertUser() {
+        // insert into usuario (email, password, nombre, apellido, fec_nac, telefono) values ('carloscruzg295@gmail.com', 'contraseña', 'Carlos','Cruz', '29/05/1998', '8442347661')
+
+        Connection conn = new Connection(this,"bd_users",null,1);
+
+        SQLiteDatabase db = conn.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(Tables.FIELD_ID_EMAIL, editTextEmail.getText().toString());
+        values.put(Tables.FIELD_PASSWORD, editTextPassword1.getText().toString());
+        values.put(Tables.FIELD_NAME, editTextFirstName.getText().toString());
+        values.put(Tables.FIELD_SURNAME, editTextLastName.getText().toString());
+        values.put(Tables.FIELD_DATE_OF_BIRTH, editTextDOB.getText().toString());
+        values.put(Tables.FIELD_PHONE, editTextPhone.getText().toString());
+
+        long id = db.insert(Tables.TABLE_USER, Tables.FIELD_ID_EMAIL, values);
+
+        db.close();
+
+        return id;
+    }
+
+    public void showDatePickerDialog(View v) {
+        FragmentDatePicker newFragment = FragmentDatePicker.newInstance((datePicker, year, month, day) -> {
+            // +1 because January is zero
+            final String selectedDate = twoDigits(day) + "/" + twoDigits(month + 1) + "/" + year;
+            editTextDOB.setText(selectedDate);
         });
+
+        newFragment.show(getSupportFragmentManager(), "datePicker");
+    }
+
+    private String twoDigits(int n) {
+        return (n<=9) ? ("0"+n) : String.valueOf(n);
     }
 }

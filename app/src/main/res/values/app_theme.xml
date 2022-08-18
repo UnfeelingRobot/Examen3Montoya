@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Pastel" parent="Theme.MaterialComponents.Light">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/text_dark</item>
+        <item name="colorPrimaryVariant">@color/background_dark</item>
+        <item name="colorOnPrimary">@color/secondary_dark</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/secondary_dark</item>
+        <item name="colorSecondaryVariant">@color/secondary_dark</item>
+        <item name="colorOnSecondary">@color/secondary_dark</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">#bb9bb0</item>        <!-- Customize your theme here. -->
+        <item name="fontFamily">@font/roboto</item>
+        <item name="android:textViewStyle">@style/textView</item>
+        <item name="editTextStyle">@style/editText</item>
+    </style>
+    <!-- Base text color -->
+    <style name="textView" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/text_dark</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    <!-- Base editText style -->
+    <style name="editText" parent="android:Widget.EditText">
+        <item name="android:textColor">@color/text_dark</item>
+        <item name="android:textColorHint">@color/text_dark</item>
+        <item name="backgroundTint">@color/text_dark</item>
+    </style>
+    <!-- Button style -->
+    <style name="button">
+        <item name="cornerRadius">20dp</item>
+    </style>
+    <style name="home_button" parent="button">
+        <item name="android:layout_margin">10dp</item>
+    </style>
+    <!-- Base layout color -->
+    <style name="linear_layout_vertical">
+        <item name="android:layout_margin">20dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="linear_layout_horizontal">
+        <item name="android:gravity">center</item>
+        <item name="backgroundColor">@color/text_dark</item>
+    </style>
+    <!-- Base Dialog color -->
+    <style name="dialog" parent="Theme.AppCompat.Light.Dialog.MinWidth">
+        <item name="colorPrimary">@color/text_dark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+</resources>
