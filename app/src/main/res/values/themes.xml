@@ -18,6 +18,7 @@
 
     <style name="SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowBackground">@drawable/background_splashscreen</item>
+        <item name="android:statusBarColor" tools:targetApi="l">#bb9bb0</item>
 
     </style>
     <style name="login" parent="Theme.AppCompat">

@@ -32,7 +32,8 @@ public class ScheduleDateActivity extends AppCompatActivity {
 
     // Constantes
     final int STARTHOUR = 9;
-    final String[] SESSION_TYPE =  {"Aplicacion de pestañas", "Colorimetría del cabello", "Manicura", "Maquillaje y peinado"};
+    final String[] PROCEDURE_TYPE =  {"Queries", "Psychological evaluation", "Psychopedagogical Evaluation", "Psychological reports", "Individual therapy",
+    "Couple therapy","Family therapy","Vocational orientation"};
 
     // Campos
     public Spinner spinnerType, spinnerDate, spinnerTime;
@@ -51,7 +52,7 @@ public class ScheduleDateActivity extends AppCompatActivity {
         textViewDate = findViewById(R.id.textViewDate);
         textViewTime = findViewById(R.id.textViewTime);
 
-        // Colocar tipo de sesión
+        // Colocar tipo de procedimientos
         fillTypes();
         // Colocar fechas en spinner
         fillDates();
@@ -93,7 +94,7 @@ public class ScheduleDateActivity extends AppCompatActivity {
         String email = sharedPref.getString(getString(R.string.email), "");
 
         String type = spinnerType.getSelectedItem().toString().trim();
-        String date = spinnerDate.getSelectedItem().toString().trim() + " " + spinnerTime.getSelectedItem().toString().trim();
+        String day = spinnerDate.getSelectedItem().toString().trim() + " " + spinnerTime.getSelectedItem().toString().trim();
 
         Connection conn = new Connection(this,"bd_users",null,1);
 
@@ -102,7 +103,7 @@ public class ScheduleDateActivity extends AppCompatActivity {
 
         values.put(Tables.FIELD_ID_EMAIL, email);
         values.put(Tables.FIELD_TYPE, type);
-        values.put(Tables.FIELD_DATE_OF_BIRTH, date);
+        values.put(Tables.FIELD_DATE_OF_BIRTH, day);
 
         long id = db.insert(Tables.TABLE_DATES, Tables.FIELD_ID_EMAIL, values);
 
@@ -113,11 +114,11 @@ public class ScheduleDateActivity extends AppCompatActivity {
 
     private String getDialogText() {
         String type = spinnerType.getSelectedItem().toString().trim();
-        String date = spinnerDate.getSelectedItem().toString().trim();
+        String day = spinnerDate.getSelectedItem().toString().trim();
         String time = spinnerTime.getSelectedItem().toString().trim();
 
         return "Session: " + type + "\n" +
-                "Day: " + date + "\n" +
+                "Day: " + day + "\n" +
                 "Hour: " + time;
     }
 
@@ -151,7 +152,7 @@ public class ScheduleDateActivity extends AppCompatActivity {
 
         spinnerArray.add("<Select a session type>");
 
-        Collections.addAll(spinnerArray, SESSION_TYPE);
+        Collections.addAll(spinnerArray, PROCEDURE_TYPE);
 
         spinnerType = findViewById(R.id.spinnerType);
 
@@ -214,8 +215,7 @@ public class ScheduleDateActivity extends AppCompatActivity {
     private void fillTime() {
         spinnerArray = new ArrayList<>();
 
-        spinnerArray.add("<\n" +
-                "Select a time>");
+        spinnerArray.add("<Select a time>");
 
         for (int i = STARTHOUR; i <= 20; i++) {
             String hour = format("%02d", i) + ":00 hrs";

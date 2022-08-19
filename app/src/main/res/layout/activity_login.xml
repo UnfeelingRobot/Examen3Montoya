@@ -20,9 +20,9 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:contentDescription="@string/login"
-            app:srcCompat="@drawable/ic_user" />
+            app:srcCompat="@drawable/login" />
 
         <EditText
             android:id="@+id/editTextEmail"
@@ -31,7 +31,8 @@
             android:ems="10"
             android:hint="@string/email"
             android:importantForAutofill="no"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            app:startIconDrawable="@drawable/icon_person"/>
 
         <EditText
             android:id="@+id/editTextPassword"

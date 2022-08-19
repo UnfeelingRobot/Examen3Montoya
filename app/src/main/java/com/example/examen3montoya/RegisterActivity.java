@@ -102,26 +102,26 @@ public class RegisterActivity extends AppCompatActivity {
     // Métodos públicos
     public void buttonSignUp(View view) {
         if (awesomeValidation.validate()) {
-//            Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_SHORT).show();
+
             try {
                 long resultado = insertUser();
                 if (resultado != -1) {
                     Intent intent = new Intent(this, LoginActivity.class);
                     startActivity(intent);
-                    Toast.makeText(this, "Usuario registrado!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "\n" + "Registered user!", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "El correo electrónico ya está registrado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "E\n" + "Email is already registered", Toast.LENGTH_SHORT).show();
                 }
             } catch (Exception e) {
                 Toast.makeText(this, e + "", Toast.LENGTH_LONG).show();
             }
         } else {
-            Toast.makeText(getApplicationContext(), "Revisa los campos", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Check the fields", Toast.LENGTH_SHORT).show();
         }
     }
 
     private long insertUser() {
-        // insert into usuario (email, password, nombre, apellido, fec_nac, telefono) values ('carloscruzg295@gmail.com', 'contraseña', 'Carlos','Cruz', '29/05/1998', '8442347661')
+
 
         Connection conn = new Connection(this,"bd_users",null,1);
 
@@ -144,7 +144,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     public void showDatePickerDialog(View v) {
         FragmentDatePicker newFragment = FragmentDatePicker.newInstance((datePicker, year, month, day) -> {
-            // +1 because January is zero
+
             final String selectedDate = twoDigits(day) + "/" + twoDigits(month + 1) + "/" + year;
             editTextDOB.setText(selectedDate);
         });

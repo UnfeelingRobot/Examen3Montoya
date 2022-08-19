@@ -29,10 +29,10 @@
                 android:textSize="30sp" />
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
                 android:contentDescription="@string/home"
-                app:srcCompat="@drawable/ic_home" />
+                app:srcCompat="@drawable/menu" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -43,7 +43,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/ic_plan_date"
+                    app:srcCompat="@drawable/agenda"
                     android:contentDescription="@string/schedule_date" />
 
                 <ImageView
@@ -51,7 +51,7 @@
                     android:layout_height="60dp"
                     android:layout_weight="1"
                     android:contentDescription="@string/select_date"
-                    app:srcCompat="@drawable/ic_change" />
+                    app:srcCompat="@drawable/dates" />
             </LinearLayout>
 
             <LinearLayout
@@ -86,7 +86,7 @@
                     android:layout_height="60dp"
                     android:layout_weight="1"
                     android:contentDescription="@string/update_account"
-                    app:srcCompat="@drawable/ic_info" />
+                    app:srcCompat="@drawable/info" />
 
                 <ImageView
                     android:layout_width="match_parent"

@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:contentDescription="@string/sign_up"
-                app:srcCompat="@drawable/ic_sign_up" />
+                app:srcCompat="@drawable/information" />
 
             <EditText
                 android:id="@+id/editTextFirstName"

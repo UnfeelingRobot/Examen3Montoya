@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/firstFragment"
-        android:icon="@android:drawable/ic_menu_gallery"
-        android:title="Pictures"/>
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="Personal"/>
     <item
         android:id="@+id/secondFragment"
-        android:icon="@android:drawable/ic_menu_camera"
-        android:title="Your picture"/>
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="Information"/>
 
 </menu>

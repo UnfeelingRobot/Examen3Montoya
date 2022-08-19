@@ -18,69 +18,73 @@
     <string name="register_text_link_login">Log in</string>
 
 
-    <string name="email">Correo electrónico</string>
-    <string name="password">Contraseña</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
 
-    <!-- Elementos de inicio de sesión -->
-    <string name="login">Iniciar sesión</string>
-    <string name="unregistered">¿No estás registrado?</string>
-    <string name="sign_up">Regístrate</string>
+    <!-- Log in -->
+    <string name="login">Log in</string>
+    <string name="unregistered">Don\'t have an account?</string>
+    <string name="sign_up">Sign up</string>
 
-    <!-- Validación de formulario -->
-    <string name="error_email">Ingresa un correo válido</string>
-    <string name="error_password">Ingresa una contraseña válida\nMin. 6 caractéres</string>
-    <string name="error_name">Ingresa un nombre válido</string>
-    <string name="error_year">Ingresa una fecha válida \nLa fecha debe ser Día/Mes/Año \nEdad mínima 16</string>
-    <string name="wrong_password">Las contraseñas no coinciden</string>
-    <string name="error_phone">Ingresa un teléfono válido \nDebe contener 10 números</string>
-    <string name="email_not_found">No se encuentra la cuenta</string>
-    <string name="email_not_match">Contraseña incorrecta</string>
+    <!-- Validation Form -->
+    <string name="error_email">Enter a valid email</string>
+    <string name="error_password">Please enter a valid password\nMin. Ingresa un nombre válido6 characters</string>
+    <string name="error_name">Please enter a valid name</string>
+    <string name="error_year">Please enter a valid date \nThe date must be Day/Month/Year \nMinimum age 16</string>
+    <string name="wrong_password">Passwords do not match</string>
+    <string name="error_phone">Please enter a valid phone number \nMust contain 10 numbers</string>
+    <string name="email_not_found">Account not found</string>
+    <string name="email_not_match">Incorrect password</string>
 
-    <!-- Elementos de registro -->
-    <string name="first_name">Nombre (s)</string>
-    <string name="last_name">Apellido (s)</string>
-    <string name="phone">Teléfono</string>
-    <string name="password2">Confirmar contraseña</string>
-    <string name="dob">Fec. Nac. p. ej. 29/05/1998</string>
+    <!-- Register -->
+    <string name="first_name">First name</string>
+    <string name="last_name">Last name</string>
+    <string name="phone">Phone</string>
+    <string name="password2">Confirm Password</string>
+    <string name="dob">Date of birth example 29/05/1998</string>
 
-    <!-- Elementos Home -->
-    <string name="schedule_date">Agendar cita</string>
-    <string name="select_date">Ver citas</string>
-    <string name="update_account">Editar cuenta</string>
-    <string name="exit">Salir</string>
+    <!-- Home -->
+    <string name="schedule_date">Schedule date</string>
+    <string name="select_date">See dates</string>
+    <string name="update_account">Edit account</string>
+    <string name="exit">Exit</string>
     <string name="home">Home</string>
-    <string name="about_me">Conoce Charly\'s Salon</string>
-    <string name="session_type">Tipo de sesión</string>
+    <string name="about_me">know about us</string>
+    <string name="session_type">Type of procedure</string>
 
-    <!-- Elementos Agendar cita -->
-    <string name="date">Fecha</string>
-    <string name="time">Hora</string>
+    <!-- schedule an appointment -->
+    <string name="date">Date</string>
+    <string name="time">Hour</string>
 
-    <!-- Error agendando cita -->
-    <string name="error_type">Debes seleccionar una sesión</string>
-    <string name="error_date">Debes seleccionar una fecha</string>
-    <string name="error_time">Debes seleccionar una hora</string>
-    <string name="confirm_date">¿Guardar cita?</string>
-    <string name="select_schedule_date">Selecciona una cita</string>
-    <string name="empty_dates">Aún no haz reservado cita :(</string>
-    <string name="update_date">Cambiar cita</string>
-    <string name="cancel_date">Cancelar cita</string>
-    <string name="try_again">Intentar de nuevo</string>
-    <string name="date_schedule_date">Fecha que se realizó la cita</string>
+    <!-- Error schedule an appointment -->
+    <string name="error_type">You must select a procedure</string>
+    <string name="error_date">You must select a date</string>
+    <string name="error_time">You must select a time</string>
+    <string name="confirm_date">Save appointment?</string>
+    <string name="select_schedule_date">Select an appointment</string>
+    <string name="empty_dates">You have no scheduled appointments</string>
+    <string name="update_date">Change appointment</string>
+    <string name="cancel_date">Cancel appointment</string>
+    <string name="try_again">Try again</string>
+    <string name="date_schedule_date">Date the appointment was made</string>
 
-    <string name="are_sure">¿Cancelar cita?</string>
-    <string name="delete">La cita se cancelará y se perderá el lugar</string>
-    <string name="confirm">Confirmar</string>
-    <string name="cancel">Cancelar</string>
-    <string name="visit_us">Visitanos!</string>
-    <string name="location">Blvd. Venustiano Carranza, Privada Tecnológico 2400, 25280 Saltillo, Coah.</string>
-    <string name="made_by">App realizada por Carlos Cruz</string>
-    <string name="icons_thanks">Los iconos se obtuvieron gracias a:</string>
-    <string-array name="icon">
-        <item>Créditos de los iconos</item>
-        <item>Icon made by Freepik from www.flaticon.com</item>
-        <item>Icon made by icoongeek26 from www.flaticon.com</item>
-        <item>Icon made by Alfredo Hernandez from www.flaticon.com</item>
-        <item>Icon made by Nikita Golubev from www.flaticon.com</item>
+    <string name="are_sure">Cancel appointment?</string>
+    <string name="delete">The appointment will be canceled and the place will be forfeited</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="visit_us">Visit us!</string>
+    <string name="location">AV. VENEZUELA 1650 URB. CHACRA COLORADA LIMA-LIMA-BREÑA</string>
+    <string name="procedures">We have the following procedures:</string>
+    <string-array name="list">
+        <item>Queries</item>
+        <item>Psychological evaluation</item>
+        <item>Psychopedagogical Evaluation</item>
+        <item>Psychological reports</item>
+        <item>Individual therapy</item>
+        <item>Couple therapy</item>
+        <item>Family therapy</item>
+        <item>Vocational orientation</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
