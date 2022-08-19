@@ -181,6 +181,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
     public void createCheckPass(){
+        auth.signOut();
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
 
@@ -189,4 +190,5 @@ public class RegisterActivity extends AppCompatActivity {
     public void createCheckError(){
         Toast.makeText(this, "\n" + "Hubo un problema al registrar el usuario!", Toast.LENGTH_SHORT).show();
     }
+
 }

@@ -31,7 +31,7 @@ public class InformationActivity extends AppCompatActivity {
 
     public void buttonCamera(View view){
         Intent intent = new Intent();
-        intent.setType("image/");
+        intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent,"psicologa"),1);
     }

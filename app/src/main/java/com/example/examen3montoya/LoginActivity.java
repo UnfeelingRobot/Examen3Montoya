@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
         String email, password;
         email = editTextEmail.getText().toString().trim();
         password = editTextPassword.getText().toString().trim();
-        signIn();
+
 
         if (awesomeValidation.validate()) if (checkEmail(email)) {
             if (checkEmailPassword(email, password)) {
@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.email), email);
                 editor.apply();
-
+                signIn();
 
             }
         }

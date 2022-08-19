@@ -76,7 +76,7 @@ public class ScheduleDateActivity extends AppCompatActivity {
                 // Hacer cosas aqui al hacer clic en el boton de aceptar
                 try {
                     long result = insertDate();
-                    if (result != 1) {
+                    if (result != -1) {
                         Intent intent = new Intent(this, MainActivity.class);
                         startActivity(intent);
                         Toast.makeText(this, "Appointment saved successfully", Toast.LENGTH_SHORT).show();
