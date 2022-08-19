@@ -73,7 +73,7 @@
                 android:id="@+id/spinnerDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:spinnerMode="dialog"/>
+                android:spinnerMode="dialog" />
 
             <TextView
                 android:id="@+id/textViewDate"

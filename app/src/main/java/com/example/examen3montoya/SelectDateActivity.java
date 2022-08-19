@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 public class SelectDateActivity extends AppCompatActivity {
 
-    public TextView textViewTitle, textViewEmpty, editTextSessionType, editTextDateTime, editTextDateScheduled, textView, textView2, textView3;
+    public TextView textViewTitle, textViewEmpty, editTextSessionType,editTextPsychologist, editTextDateTime, editTextDateScheduled, textView, textView2, textView3,textView4;
     public Spinner spinnerSelectDate;
     public Button buttonCancelDate;
 
@@ -52,9 +52,11 @@ public class SelectDateActivity extends AppCompatActivity {
         editTextSessionType = findViewById(R.id.editTextSessionType);
         editTextDateTime = findViewById(R.id.editTextDateTime);
         editTextDateScheduled = findViewById(R.id.editTextDateScheduled);
+        editTextPsychologist=findViewById(R.id.editTextPsychologist);
         textView = findViewById(R.id.textView);
         textView2 = findViewById(R.id.textView2);
         textView3 = findViewById(R.id.textView3);
+        textView4=findViewById(R.id.textView4);
 
         buttonCancelDate.setEnabled(false);
 
@@ -81,13 +83,16 @@ public class SelectDateActivity extends AppCompatActivity {
                         textView.setVisibility(View.VISIBLE);
                         textView2.setVisibility(View.VISIBLE);
                         textView3.setVisibility(View.VISIBLE);
+                        textView4.setVisibility(View.VISIBLE);
                         buttonCancelDate.setVisibility(View.VISIBLE);
                         editTextSessionType.setVisibility(View.VISIBLE);
+                        editTextPsychologist.setVisibility(View.VISIBLE);
                         editTextDateTime.setVisibility(View.VISIBLE);
                         editTextDateScheduled.setVisibility(View.VISIBLE);
                         buttonCancelDate.setVisibility(View.VISIBLE);
 
                         editTextSessionType.setText(dateList.get(position - 1).getType());
+                        editTextPsychologist.setText(dateList.get(position - 1).getPsico());
                         editTextDateTime.setText(dateList.get(position - 1).getDay());
                         editTextDateScheduled.setText(dateList.get(position - 1).getDay_diary() + " hrs");
                     } else {
@@ -96,13 +101,16 @@ public class SelectDateActivity extends AppCompatActivity {
                         textView.setVisibility(View.INVISIBLE);
                         textView2.setVisibility(View.INVISIBLE);
                         textView3.setVisibility(View.INVISIBLE);
+                        textView4.setVisibility(View.INVISIBLE);
                         buttonCancelDate.setVisibility(View.INVISIBLE);
                         editTextSessionType.setVisibility(View.INVISIBLE);
                         editTextDateTime.setVisibility(View.INVISIBLE);
                         editTextDateScheduled.setVisibility(View.INVISIBLE);
                         buttonCancelDate.setVisibility(View.INVISIBLE);
+                        editTextPsychologist.setVisibility(View.INVISIBLE);
 
                         editTextSessionType.setText("");
+                        editTextPsychologist.setText("");
                         editTextDateTime.setText("");
                         editTextDateScheduled.setText("");
                     }
@@ -145,7 +153,7 @@ public class SelectDateActivity extends AppCompatActivity {
         String email = sharedPref.getString(getString(R.string.email), "");
 
         String[] parametros = { email };
-        String[] campos = { Tables.FIELD_TYPE, Tables.FIELD_DAY_DATE, Tables.FIELD_DAY_DIARY };
+        String[] campos = { Tables.FIELD_TYPE,Tables.FIELD_PSICO, Tables.FIELD_DAY_DATE, Tables.FIELD_DAY_DIARY };
 
         try {
             // Select correo electrónico from usuario where correo electrónico =?
@@ -161,11 +169,14 @@ public class SelectDateActivity extends AppCompatActivity {
                 while (cursor.moveToNext()){
                     date = new Date();
                     date.setType(cursor.getString(0));
-                    date.setDay(cursor.getString(1));
-                    date.setDay_diary(cursor.getString(2));
+                    date.setPsico(cursor.getString(1));
+                    date.setDay(cursor.getString(2));
+                    date.setDay_diary(cursor.getString(3));
 
                     Log.i("Type", date.getType());
-                    Log.i("Day", date.getDay());
+                    Log.i("Psico",date.getPsico());
+
+                    Log.i("Day_diary",date.getDay_diary());
 
                     dateList.add(date);
 
