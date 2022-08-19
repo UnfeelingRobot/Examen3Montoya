@@ -66,10 +66,11 @@ public class LoginActivity extends AppCompatActivity {
         String email, password;
         email = editTextEmail.getText().toString().trim();
         password = editTextPassword.getText().toString().trim();
+        signIn();
 
         if (awesomeValidation.validate()) if (checkEmail(email)) {
             if (checkEmailPassword(email, password)) {
-                signIn();
+
                 SharedPreferences sharedPref = this.getSharedPreferences("email", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.email), email);
@@ -86,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public Boolean checkEmail(String email) {
+
         db = conn.getReadableDatabase();
         String[] parameters = { email };
         String[] fields = {Tables.FIELD_NAME };
@@ -139,6 +141,7 @@ public class LoginActivity extends AppCompatActivity {
         SQLiteDatabase db = conn.getReadableDatabase();
 
         try {
+
             // Select correo electrónico from usuario where correo electrónico =?
             Cursor cursor = db.rawQuery("Select " + Tables.FIELD_ID_EMAIL + ", " + Tables.FIELD_PASSWORD +
                             " from " + Tables.TABLE_USER
@@ -146,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
                     new String[] { email, password });
 
             if (cursor.getCount() > 0) {
-                signIn();
+
                 return true;
 
             } else {
@@ -182,12 +185,17 @@ public class LoginActivity extends AppCompatActivity {
 
 
     public void signIn(){
-        auth.signInWithEmailAndPassword(editTextEmail.getText().toString(), editTextPassword.getText().toString())
+        String email, password;
+        email = editTextEmail.getText().toString().trim();
+        password = editTextPassword.getText().toString().trim();
+        auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
+                            System.out.println("sdsd");
+
                             signInCheckPass();
                         } else {
                             // If sign in fails, display a message to the user.
@@ -200,6 +208,7 @@ public class LoginActivity extends AppCompatActivity {
     public void signInCheckPass(){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
     public void signInCheckError(){
         Toast.makeText(this, "\n" + "Hubo un problema al registrarse!", Toast.LENGTH_SHORT).show();

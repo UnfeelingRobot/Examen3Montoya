@@ -102,7 +102,7 @@ public class ScheduleDateActivity extends AppCompatActivity {
         String day = spinnerDate.getSelectedItem().toString().trim() + " " + spinnerTime.getSelectedItem().toString().trim();
 
         Connection conn = new Connection(this,"bd_users",null,1);
-
+        System.out.println("joel");
         SQLiteDatabase db = conn.getWritableDatabase();
         ContentValues values = new ContentValues();
 

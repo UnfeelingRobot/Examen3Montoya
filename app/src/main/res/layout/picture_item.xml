@@ -15,6 +15,8 @@
         android:orientation="vertical"
         android:padding="16dp"
         android:layout_margin="10dp"
+        android:gravity="center"
+
         android:background="?colorTertiary"
         android:layout_marginTop="40dp"
         >
@@ -38,6 +40,14 @@
             android:gravity="center"
             android:layout_marginLeft="20dp"
             />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="Subir foto"
+            android:gravity="center"
+            android:onClick="buttonCamera"
+            ></Button>
     </LinearLayout>
 
 
