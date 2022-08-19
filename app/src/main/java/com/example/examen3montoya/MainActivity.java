@@ -12,15 +12,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
 
     public TextView textViewName;
-
+    private FirebaseAuth auth;
     @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        auth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_main);
 
         SharedPreferences sharedPref = this.getSharedPreferences("name", Context.MODE_PRIVATE);
@@ -46,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Método que dirige a salir de la sesión
     public void buttonExit(View view) {
+        auth.signOut();
         SharedPreferences sharedPref = this.getSharedPreferences("email", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.clear();

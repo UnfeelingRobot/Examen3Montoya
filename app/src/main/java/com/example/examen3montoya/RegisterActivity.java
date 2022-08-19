@@ -1,5 +1,6 @@
 package com.example.examen3montoya;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -19,6 +20,10 @@ import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.example.examen3montoya.db.Connection;
 import com.example.examen3montoya.table.Tables;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,7 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     // Campos
     public EditText editTextFirstName, editTextLastName, editTextDOB, editTextEmail, editTextPassword1, editTextPassword2, editTextPhone;
-
+    private FirebaseAuth auth;
     // Objeto para realizar validaciones
     AwesomeValidation awesomeValidation;
 
@@ -40,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
+        auth = FirebaseAuth.getInstance();
         // Obteniendo los campos
         editTextFirstName = findViewById(R.id.editTextFirstName);
         editTextLastName = findViewById(R.id.editTextLastName);
@@ -106,9 +111,8 @@ public class RegisterActivity extends AppCompatActivity {
             try {
                 long resultado = insertUser();
                 if (resultado != -1) {
-                    Intent intent = new Intent(this, LoginActivity.class);
-                    startActivity(intent);
-                    Toast.makeText(this, "\n" + "Registered user!", Toast.LENGTH_SHORT).show();
+                    createuser();
+
                 } else {
                     Toast.makeText(this, "E\n" + "Email is already registered", Toast.LENGTH_SHORT).show();
                 }
@@ -154,5 +158,33 @@ public class RegisterActivity extends AppCompatActivity {
 
     private String twoDigits(int n) {
         return (n<=9) ? ("0"+n) : String.valueOf(n);
+    }
+
+    private void createuser(){
+
+        auth.createUserWithEmailAndPassword(editTextEmail.getText().toString(), editTextPassword1.getText().toString())
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            createCheckPass();
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            createCheckError();
+                        }
+                    }
+                });
+
+
+    }
+    public void createCheckPass(){
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+
+        Toast.makeText(this, "\n" + "Registered user!", Toast.LENGTH_SHORT).show();
+    }
+    public void createCheckError(){
+        Toast.makeText(this, "\n" + "Hubo un problema al registrar el usuario!", Toast.LENGTH_SHORT).show();
     }
 }

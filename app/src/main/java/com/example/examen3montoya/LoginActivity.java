@@ -1,5 +1,6 @@
 package com.example.examen3montoya;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -21,6 +22,11 @@ import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.example.examen3montoya.db.Connection;
 import com.example.examen3montoya.table.Tables;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -30,13 +36,13 @@ public class LoginActivity extends AppCompatActivity {
     AwesomeValidation awesomeValidation;
     Connection conn;
     SQLiteDatabase db;
-
+    private FirebaseAuth auth;
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        auth = FirebaseAuth.getInstance();
         // Obteniendo los campos
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
@@ -63,13 +69,13 @@ public class LoginActivity extends AppCompatActivity {
 
         if (awesomeValidation.validate()) if (checkEmail(email)) {
             if (checkEmailPassword(email, password)) {
+                signIn();
                 SharedPreferences sharedPref = this.getSharedPreferences("email", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.email), email);
                 editor.apply();
 
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+
             }
         }
     }
@@ -140,6 +146,7 @@ public class LoginActivity extends AppCompatActivity {
                     new String[] { email, password });
 
             if (cursor.getCount() > 0) {
+                signIn();
                 return true;
 
             } else {
@@ -163,4 +170,41 @@ public class LoginActivity extends AppCompatActivity {
         return false;
     }
 
+    @Override
+    protected void onStart() {
+        FirebaseUser currentUser = auth.getCurrentUser();
+        if(currentUser != null){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+        super.onStart();
+    }
+
+
+    public void signIn(){
+        auth.signInWithEmailAndPassword(editTextEmail.getText().toString(), editTextPassword.getText().toString())
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            signInCheckPass();
+                        } else {
+                            // If sign in fails, display a message to the user.
+
+                            signInCheckError();
+                        }
+                    }
+                });
+    }
+    public void signInCheckPass(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+    public void signInCheckError(){
+        Toast.makeText(this, "\n" + "Hubo un problema al registrarse!", Toast.LENGTH_SHORT).show();
+
+    }
+
 }
+

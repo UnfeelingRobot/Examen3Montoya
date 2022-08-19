@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "901043833821",
+    "project_id": "ec4-idat",
+    "storage_bucket": "ec4-idat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901043833821:android:0b41732b7f9e48ebc90434",
+        "android_client_info": {
+          "package_name": "com.example.examen3montoya"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "901043833821-akodqg4n9eb1vlemv9qbtvsshlntqa16.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAV7wbX7OhIEU2MjFddGmxQ1bQK9CQcma8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "901043833821-akodqg4n9eb1vlemv9qbtvsshlntqa16.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
