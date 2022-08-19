@@ -29,7 +29,9 @@ import java.util.ArrayList;
 
 public class SelectDateActivity extends AppCompatActivity {
 
+
     public TextView textViewTitle, textViewEmpty, editTextSessionType,editTextPsychologist, editTextDateTime, editTextDateScheduled, textView, textView2, textView3,textView4;
+
     public Spinner spinnerSelectDate;
     public Button buttonCancelDate;
 
@@ -50,6 +52,7 @@ public class SelectDateActivity extends AppCompatActivity {
         spinnerSelectDate = findViewById(R.id.spinnerSelectDate);
         buttonCancelDate = findViewById(R.id.buttonCancelDate);
         editTextSessionType = findViewById(R.id.editTextSessionType);
+        editTextPsychologist = findViewById(R.id.editTextPsychologist);
         editTextDateTime = findViewById(R.id.editTextDateTime);
         editTextDateScheduled = findViewById(R.id.editTextDateScheduled);
         editTextPsychologist=findViewById(R.id.editTextPsychologist);
@@ -57,6 +60,7 @@ public class SelectDateActivity extends AppCompatActivity {
         textView2 = findViewById(R.id.textView2);
         textView3 = findViewById(R.id.textView3);
         textView4=findViewById(R.id.textView4);
+
 
         buttonCancelDate.setEnabled(false);
 
@@ -104,6 +108,7 @@ public class SelectDateActivity extends AppCompatActivity {
                         textView4.setVisibility(View.INVISIBLE);
                         buttonCancelDate.setVisibility(View.INVISIBLE);
                         editTextSessionType.setVisibility(View.INVISIBLE);
+                        editTextPsychologist.setVisibility(View.INVISIBLE);
                         editTextDateTime.setVisibility(View.INVISIBLE);
                         editTextDateScheduled.setVisibility(View.INVISIBLE);
                         buttonCancelDate.setVisibility(View.INVISIBLE);
@@ -153,7 +158,10 @@ public class SelectDateActivity extends AppCompatActivity {
         String email = sharedPref.getString(getString(R.string.email), "");
 
         String[] parametros = { email };
+
         String[] campos = { Tables.FIELD_TYPE,Tables.FIELD_PSICO, Tables.FIELD_DAY_DATE, Tables.FIELD_DAY_DIARY };
+
+
 
         try {
             // Select correo electrónico from usuario where correo electrónico =?
@@ -175,8 +183,9 @@ public class SelectDateActivity extends AppCompatActivity {
 
                     Log.i("Type", date.getType());
                     Log.i("Psico",date.getPsico());
-
                     Log.i("Day_diary",date.getDay_diary());
+                    Log.i("Day", date.getDay());
+
 
                     dateList.add(date);
 
@@ -195,7 +204,7 @@ public class SelectDateActivity extends AppCompatActivity {
 
     private void getList() {
         listDates = new ArrayList<>();
-        listDates.add("<Select a day>");
+        listDates.add("Select a day");
 
         for(int i=0; i < dateList.size(); i++){
             listDates.add(dateList.get(i).getType() + " - " + dateList.get(i).getDay());

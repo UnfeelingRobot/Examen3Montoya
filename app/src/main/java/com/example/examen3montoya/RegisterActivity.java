@@ -96,7 +96,7 @@ public class RegisterActivity extends AppCompatActivity {
         awesomeValidation.addValidation(this, R.id.editTextPassword1, ".{6,}", R.string.error_password);
         awesomeValidation.addValidation(this, R.id.editTextPassword2, R.id.editTextPassword1, R.string.wrong_password);
         // Validación teléfono
-        awesomeValidation.addValidation(this, R.id.editTextPhone, "\\d{10}", R.string.error_phone);
+        awesomeValidation.addValidation(this, R.id.editTextPhone, "\\d{9}", R.string.error_phone);
     }
 
     // Métodos públicos

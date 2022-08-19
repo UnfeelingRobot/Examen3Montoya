@@ -76,7 +76,7 @@ public class ScheduleDateActivity extends AppCompatActivity {
                 // Hacer cosas aqui al hacer clic en el boton de aceptar
                 try {
                     long result = insertDate();
-                    if (result != -1) {
+                    if (result != 1) {
                         Intent intent = new Intent(this, MainActivity.class);
                         startActivity(intent);
                         Toast.makeText(this, "Appointment saved successfully", Toast.LENGTH_SHORT).show();
@@ -99,7 +99,8 @@ public class ScheduleDateActivity extends AppCompatActivity {
         String email = sharedPref.getString(getString(R.string.email), "");
         String type = spinnerType.getSelectedItem().toString().trim();
         String psico = spinnerPsico.getSelectedItem().toString().trim();
-        String day= spinnerDate.getSelectedItem().toString().trim() + " " + spinnerTime.getSelectedItem().toString().trim();
+        String day_date= spinnerDate.getSelectedItem().toString().trim() + " " + spinnerTime.getSelectedItem().toString().trim();
+
         Connection conn = new Connection(this,"bd_users",null,1);
 
         SQLiteDatabase db = conn.getWritableDatabase();
@@ -108,8 +109,7 @@ public class ScheduleDateActivity extends AppCompatActivity {
         values.put(Tables.FIELD_ID_EMAIL, email);
         values.put(Tables.FIELD_TYPE, type);
         values.put(Tables.FIELD_PSICO, psico);
-        values.put(Tables.FIELD_DAY_DATE,day);
-
+        values.put(Tables.FIELD_DAY_DATE,day_date);
 
         long id = db.insert(Tables.TABLE_DATES, Tables.FIELD_ID_EMAIL, values);
 
