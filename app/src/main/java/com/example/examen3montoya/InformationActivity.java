@@ -14,8 +14,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class InformationActivity extends AppCompatActivity {
 
-    InformationFragment firstFragment = new InformationFragment();
-    PersonalFragment secondFragment = new PersonalFragment();
+    InformationFragment secondFragment = new InformationFragment();
+    PersonalFragment firstFragment = new PersonalFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +24,7 @@ public class InformationActivity extends AppCompatActivity {
 
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        loadFragment(secondFragment);
+        loadFragment(firstFragment);
     }
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override

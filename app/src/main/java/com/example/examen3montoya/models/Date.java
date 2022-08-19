@@ -5,12 +5,14 @@ import java.io.Serializable;
 public class Date implements Serializable {
     private String email;
     private String type;
+    private String psico;
     private String day;
     private String day_diary;
 
-    public Date(String email, String type, String day, String day_diary) {
+    public Date(String email, String type, String psico, String day, String day_diary) {
         this.email = email;
         this.type = type;
+        this.psico = psico;
         this.day = day;
         this.day_diary = day_diary;
     }
@@ -32,6 +34,13 @@ public class Date implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+    public String getPsico() {
+        return psico;
+    }
+
+    public void setPsico(String psico) {
+        this.psico = psico;
     }
 
     public String getDay() {

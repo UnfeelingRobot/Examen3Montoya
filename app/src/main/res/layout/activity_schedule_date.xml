@@ -47,6 +47,26 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="@string/select_psico" />
+
+            <Spinner
+                android:id="@+id/spinnerPsico"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dialog"/>
+
+            <TextView
+                android:id="@+id/textViewPsico"
+                android:textColor="@color/red"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/error_psico"
+                android:visibility="gone"
+                tools:visibility="gone" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="@string/date" />
 
             <Spinner

@@ -22,12 +22,14 @@ public class Tables {
     // Constantes campos tabla citas
     public static final String TABLE_DATES = "dates";
     public static final String FIELD_TYPE = "type";
+    public static final String FIELD_PSICO = "psico";
     public static final String FIELD_DAY_DATE = "day_date";
     public static final String FIELD_DAY_DIARY = "day_diary";
 
     public static final String CREATE_TABLE_DATES = "CREATE TABLE " + TABLE_DATES + " (" +
             FIELD_ID_EMAIL + " TEXT, " +
             FIELD_TYPE + " TEXT, " +
+            FIELD_PSICO + " TEXT, " +
             FIELD_DAY_DATE + " TEXT UNIQUE, " +
             FIELD_DAY_DIARY + " TIMESTAMP DEFAULT CURRENT_TIMESTAMP, " +
             " FOREIGN KEY (" + FIELD_ID_EMAIL + ") REFERENCES " + TABLE_USER + "(" + FIELD_ID_EMAIL + "));";

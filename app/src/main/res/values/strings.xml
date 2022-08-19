@@ -51,6 +51,7 @@
     <string name="home">Home</string>
     <string name="about_me">know about us</string>
     <string name="session_type">Type of procedure</string>
+    <string name="select_psico">Psychologist</string>
 
     <!-- schedule an appointment -->
     <string name="date">Date</string>
@@ -58,6 +59,7 @@
 
     <!-- Error schedule an appointment -->
     <string name="error_type">You must select a procedure</string>
+    <string name="error_psico">You must select a psychologist</string>
     <string name="error_date">You must select a date</string>
     <string name="error_time">You must select a time</string>
     <string name="confirm_date">Save appointment?</string>

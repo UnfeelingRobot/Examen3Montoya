@@ -6,6 +6,6 @@
     android:singleLine="true"
     android:layout_width="match_parent"
     android:layout_height="?attr/dropdownListPreferredItemHeight"
-    android:textColor="@color/text_dark"
+    android:textColor="@color/text"
     android:backgroundTint="@color/text_dark"
     android:padding="5dip" />

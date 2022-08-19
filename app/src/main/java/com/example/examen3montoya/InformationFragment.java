@@ -22,12 +22,13 @@ public class InformationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        vista=inflater.inflate(R.layout.fragment_information, container, false);
         Spinner spinner = (Spinner) vista.findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.list, R.layout.custom_spinner);
         adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
         spinner.setAdapter(adapter);
-        return inflater.inflate(R.layout.fragment_information, container, false);
+        return vista;
     }
 
 

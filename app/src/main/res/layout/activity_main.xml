@@ -25,6 +25,7 @@
                 android:id="@+id/textViewName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:textAlignment="center"
                 android:textSize="30sp" />
 
@@ -33,6 +34,11 @@
                 android:layout_height="200dp"
                 android:contentDescription="@string/home"
                 app:srcCompat="@drawable/menu" />
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="150dp"
+                android:contentDescription="@string/home"
+                app:srcCompat="@drawable/line" />
 
             <LinearLayout
                 android:layout_width="match_parent"

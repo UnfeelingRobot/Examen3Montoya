@@ -34,10 +34,11 @@ public class ScheduleDateActivity extends AppCompatActivity {
     final int STARTHOUR = 9;
     final String[] PROCEDURE_TYPE =  {"Queries", "Psychological evaluation", "Psychopedagogical Evaluation", "Psychological reports", "Individual therapy",
     "Couple therapy","Family therapy","Vocational orientation"};
+    final String[] PERSONAL =  {"Alejandra Torres", "Fernanda Nole", "Iris Paredes", "Laura Santillen"};
 
     // Campos
-    public Spinner spinnerType, spinnerDate, spinnerTime;
-    public TextView textViewType, textViewDate, textViewTime;
+    public Spinner spinnerType, spinnerDate, spinnerTime, spinnerPsico;
+    public TextView textViewType, textViewDate, textViewTime, textViewPsico;
 
     // Adaptador para spinner
     ArrayList<String> spinnerArray;
@@ -49,11 +50,14 @@ public class ScheduleDateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_schedule_date);
 
         textViewType = findViewById(R.id.textViewType);
+        textViewPsico = findViewById(R.id.textViewPsico);
         textViewDate = findViewById(R.id.textViewDate);
         textViewTime = findViewById(R.id.textViewTime);
 
         // Colocar tipo de procedimientos
         fillTypes();
+        // Colocar psicologas
+        fillPsico();
         // Colocar fechas en spinner
         fillDates();
         // Colocar horas en spinner
@@ -94,6 +98,7 @@ public class ScheduleDateActivity extends AppCompatActivity {
         String email = sharedPref.getString(getString(R.string.email), "");
 
         String type = spinnerType.getSelectedItem().toString().trim();
+        String psico = spinnerPsico.getSelectedItem().toString().trim();
         String day = spinnerDate.getSelectedItem().toString().trim() + " " + spinnerTime.getSelectedItem().toString().trim();
 
         Connection conn = new Connection(this,"bd_users",null,1);
@@ -103,6 +108,7 @@ public class ScheduleDateActivity extends AppCompatActivity {
 
         values.put(Tables.FIELD_ID_EMAIL, email);
         values.put(Tables.FIELD_TYPE, type);
+        values.put(Tables.FIELD_PSICO, psico);
         values.put(Tables.FIELD_DATE_OF_BIRTH, day);
 
         long id = db.insert(Tables.TABLE_DATES, Tables.FIELD_ID_EMAIL, values);
@@ -114,35 +120,42 @@ public class ScheduleDateActivity extends AppCompatActivity {
 
     private String getDialogText() {
         String type = spinnerType.getSelectedItem().toString().trim();
+        String psico = spinnerPsico.getSelectedItem().toString().trim();
         String day = spinnerDate.getSelectedItem().toString().trim();
         String time = spinnerTime.getSelectedItem().toString().trim();
 
         return "Session: " + type + "\n" +
+                "Psychologist: " + psico + "\n" +
                 "Day: " + day + "\n" +
                 "Hour: " + time;
     }
 
     private boolean spinnerValidations() {
 
-        if (spinnerType.getSelectedItem().toString().trim().equals("<Select a session type>")) {
+        if (spinnerType.getSelectedItem().toString().trim().equals("Select a procedure type")) {
             textViewType.setVisibility(View.VISIBLE);
         } else {
             textViewType.setVisibility(View.GONE);
         }
+        if (spinnerPsico.getSelectedItem().toString().trim().equals("Select a psychologist")) {
+            textViewPsico.setVisibility(View.VISIBLE);
+        } else {
+            textViewPsico.setVisibility(View.GONE);
+        }
 
-        if (spinnerDate.getSelectedItem().toString().trim().equals("<Select a day>")) {
+        if (spinnerDate.getSelectedItem().toString().trim().equals("Select a day")) {
             textViewDate.setVisibility(View.VISIBLE);
         } else {
             textViewDate.setVisibility(View.GONE);
         }
 
-        if (spinnerTime.getSelectedItem().toString().trim().equals("<Select a time>")) {
+        if (spinnerTime.getSelectedItem().toString().trim().equals("Select a time")) {
             textViewTime.setVisibility(View.VISIBLE);
         } else {
             textViewTime.setVisibility(View.GONE);
         }
 
-        return textViewType.getVisibility() != View.VISIBLE && textViewDate.getVisibility() != View.VISIBLE && textViewTime.getVisibility() != View.VISIBLE;
+        return textViewType.getVisibility() != View.VISIBLE && textViewPsico.getVisibility() != View.VISIBLE && textViewDate.getVisibility() != View.VISIBLE && textViewTime.getVisibility() != View.VISIBLE;
     }
 
     // Métodos privados
@@ -150,7 +163,7 @@ public class ScheduleDateActivity extends AppCompatActivity {
     private void fillTypes() {
         spinnerArray = new ArrayList<>();
 
-        spinnerArray.add("<Select a session type>");
+        spinnerArray.add("Select a procedure type");
 
         Collections.addAll(spinnerArray, PROCEDURE_TYPE);
 
@@ -164,12 +177,28 @@ public class ScheduleDateActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
         spinnerType.setAdapter(adapter);
 
-        /*
-        spinnerType = findViewById(R.id.spinnerType);
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spinnerArray);
-        spinnerType.setAdapter(spinnerArrayAdapter);
-        */
+
     }
+    private void fillPsico() {
+        spinnerArray = new ArrayList<>();
+
+        spinnerArray.add("Select a psychologist");
+
+        Collections.addAll(spinnerArray, PERSONAL);
+
+        spinnerPsico = findViewById(R.id.spinnerPsico);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                custom_spinner,
+                spinnerArray
+        );
+        adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
+        spinnerPsico.setAdapter(adapter);
+
+
+    }
+
 
     // Método que llena las fechas
     @SuppressLint("DefaultLocale")
@@ -178,7 +207,7 @@ public class ScheduleDateActivity extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         spinnerArray = new ArrayList<>();
 
-        spinnerArray.add("<Select a day>");
+        spinnerArray.add("Select a day");
 
         int monthNumber = calendar.get(Calendar.MONTH);
 
@@ -202,11 +231,7 @@ public class ScheduleDateActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
         spinnerDate.setAdapter(adapter);
 
-        /*
-        spinnerDate = findViewById(R.id.spinnerDate);
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spinnerArray);
-        spinnerDate.setAdapter(spinnerArrayAdapter);
-        */
+
     }
 
     // Método que llena las horas
@@ -215,7 +240,7 @@ public class ScheduleDateActivity extends AppCompatActivity {
     private void fillTime() {
         spinnerArray = new ArrayList<>();
 
-        spinnerArray.add("<Select a time>");
+        spinnerArray.add("Select a time");
 
         for (int i = STARTHOUR; i <= 20; i++) {
             String hour = format("%02d", i) + ":00 hrs";
@@ -232,11 +257,7 @@ public class ScheduleDateActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(R.layout.custom_spinner_dropdown);
         spinnerTime.setAdapter(adapter);
 
-        /*
-        spinnerTime = findViewById(R.id.spinnerTime);
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spinnerArray);
-        spinnerTime.setAdapter(spinnerArrayAdapter);
-        */
+
     }
 
     private String twoDigits(int n) {
