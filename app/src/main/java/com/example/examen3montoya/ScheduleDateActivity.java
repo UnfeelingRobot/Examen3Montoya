@@ -15,6 +15,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -96,10 +97,9 @@ public class ScheduleDateActivity extends AppCompatActivity {
     private long insertDate() {
         SharedPreferences sharedPref = this.getSharedPreferences("email", Context.MODE_PRIVATE);
         String email = sharedPref.getString(getString(R.string.email), "");
-
         String type = spinnerType.getSelectedItem().toString().trim();
         String psico = spinnerPsico.getSelectedItem().toString().trim();
-        String day = spinnerDate.getSelectedItem().toString().trim() + " " + spinnerTime.getSelectedItem().toString().trim();
+        String day_date= spinnerDate.getSelectedItem().toString().trim() + " " + spinnerTime.getSelectedItem().toString().trim();
 
         Connection conn = new Connection(this,"bd_users",null,1);
         System.out.println("joel");
@@ -109,7 +109,7 @@ public class ScheduleDateActivity extends AppCompatActivity {
         values.put(Tables.FIELD_ID_EMAIL, email);
         values.put(Tables.FIELD_TYPE, type);
         values.put(Tables.FIELD_PSICO, psico);
-        values.put(Tables.FIELD_DAY_DIARY, day);
+        values.put(Tables.FIELD_DAY_DATE,day_date);
 
         long id = db.insert(Tables.TABLE_DATES, Tables.FIELD_ID_EMAIL, values);
 
@@ -242,7 +242,7 @@ public class ScheduleDateActivity extends AppCompatActivity {
 
         spinnerArray.add("Select a time");
 
-        for (int i = STARTHOUR; i <= 20; i++) {
+        for (int i = STARTHOUR; i <= 16; i++) {
             String hour = format("%02d", i) + ":00 hrs";
             spinnerArray.add(hour);
         }

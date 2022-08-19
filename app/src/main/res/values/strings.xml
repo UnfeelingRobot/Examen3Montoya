@@ -28,11 +28,11 @@
 
     <!-- Validation Form -->
     <string name="error_email">Enter a valid email</string>
-    <string name="error_password">Please enter a valid password\nMin. Ingresa un nombre válido6 characters</string>
+    <string name="error_password">Please enter a valid password\nMin. Enter a valid password 6 characters</string>
     <string name="error_name">Please enter a valid name</string>
     <string name="error_year">Please enter a valid date \nThe date must be Day/Month/Year \nMinimum age 16</string>
     <string name="wrong_password">Passwords do not match</string>
-    <string name="error_phone">Please enter a valid phone number \nMust contain 10 numbers</string>
+    <string name="error_phone">Please enter a valid phone number \nMust contain 9 numbers</string>
     <string name="email_not_found">Account not found</string>
     <string name="email_not_match">Incorrect password</string>
 

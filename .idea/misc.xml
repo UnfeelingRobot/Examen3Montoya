@@ -41,12 +41,19 @@
         <entry key="..\:/Users/AlexI/AndroidStudioProjects/Examen3Montoya/app/src/main/res/menu/bottom_navigation.xml" value="0.1" />
         <entry key="..\:/Users/AlexI/AndroidStudioProjects/Examen3Montoya/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1045" />
         <entry key="..\:/Users/AlexI/AndroidStudioProjects/Examen3Montoya/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1045" />
+<<<<<<< HEAD
         <entry key="..\:/all/school/Examen3Montoya/app/src/main/res/layout/activity_information.xml" value="0.1" />
         <entry key="..\:/all/school/Examen3Montoya/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/all/school/Examen3Montoya/app/src/main/res/layout/activity_register.xml" value="0.1" />
         <entry key="..\:/all/school/Examen3Montoya/app/src/main/res/layout/fragment_information.xml" value="0.1" />
         <entry key="..\:/all/school/Examen3Montoya/app/src/main/res/layout/fragment_personal.xml" value="0.1" />
         <entry key="..\:/all/school/Examen3Montoya/app/src/main/res/layout/picture_item.xml" value="0.1" />
+=======
+        <entry key="..\:/Users/piero/OneDrive - Universidad Tecnologica del Peru/V-IDAT-2022/Desarrollo_de_Aplicaciones_Moviles/EVC_4/Examen3Montoya/app/src/main/res/layout/activity_schedule_date.xml" value="0.33" />
+        <entry key="..\:/Users/piero/OneDrive - Universidad Tecnologica del Peru/V-IDAT-2022/Desarrollo_de_Aplicaciones_Moviles/EVC_4/Examen3Montoya/app/src/main/res/layout/activity_select_date.xml" value="0.16666666666666666" />
+        <entry key="..\:/Users/piero/OneDrive - Universidad Tecnologica del Peru/V-IDAT-2022/Desarrollo_de_Aplicaciones_Moviles/EVC_4/Examen3Montoya/app/src/main/res/layout/custom_spinner.xml" value="0.13069908814589665" />
+        <entry key="..\:/Users/piero/OneDrive - Universidad Tecnologica del Peru/V-IDAT-2022/Desarrollo_de_Aplicaciones_Moviles/EVC_4/Examen3Montoya/app/src/main/res/layout/custom_spinner_dropdown.xml" value="0.13069908814589665" />
+>>>>>>> 7177606d499eb92ce6416e3a284816fcdbd3bb59
       </map>
     </option>
   </component>
